@@ -385,81 +385,13 @@ $(document).ready(function(){
 						<td>{{$i->product_quality}}</td>
                         <td> <img  src="{{asset('/storage/img/'.$i->product_img) }}" alt="" height=60> </td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
-<div class="modal-dialog">
-		<div class="modal-content">
-			<form method='post' action="{{url('update/id/'.$i->id)}}" enctype="multipart/form-data">
-            @csrf
-        @method('put')
-				<div class="modal-header">						
-					<h4 class="modal-title">Edit Product</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control @error('product_name') is-invalid @enderror" name='product_name' value='{{$i->product_name}}' required>
-						@error('product_name')
-                         <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-					</div>
-					<div class="form-group">
-						<label>Price</label>
-						<input type="text" class="form-control @error('product_price') is-invalid @enderror"
-                        name='product_price' value='{{$i->product_price}}'  required>
-						@error('product_price')
-                         <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-					</div>
-					<div class="form-group">
-						<label>Details</label>
-						<textarea class="form-control @error('product_details') is-invalid @enderror"
-                        name='product_details' required>{{$i->product_details}} </textarea>
-						@error('product_details')
-                         <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-					</div>
-					<div class="form-group">
-						<label>Quality</label>
-						<input type="text" class="form-control @error('product_quality') is-invalid @enderror"
-                        value='{{$i->product_quality}}'
-                        name='product_quality' 
-                        required>
-						@error('product_quality')
-                         <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-					</div>	
-                    <div class="form-group">
-						<label>Image</label>
-						<input type="file" class="form-control @error('product_img') is-invalid @enderror"
-                        name='product_img' 
-                        required>
-						@error('product_img')
-                         <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-					</div>				
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Edit">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-                            </td>
-                            <td>
-							<form>
-			
-				
-					
-					<a  href="{{url('delete/id/'.$i->id)}}" type="submit" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
-				
-			</form>
-							
-						    </td>
+							<a href="{{url('update/id/'.$i->id)}}" class="edit" ><i class="material-icons"  title="Edit">&#xE254;</i></a>
+                        </td>
+                        <td>
+						<form>
+					       <a  href="{{url('delete/id/'.$i->id)}}" type="submit" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
+			             </form>
+						</td>
 					</tr>
 					@endforeach
 					

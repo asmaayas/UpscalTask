@@ -25,6 +25,8 @@ Route::post('/updateuser',[UserController::class, 'updateuser']);
 Route::post('/createPro', [ProductController::class,'createPro']);
 Route::get('delete/id/{id}', [ProductController::class, 'deletePro']);
 Route::put('/update/id/{id}', [ProductController::class, 'updatePro']);
+Route::get('/update/id/{id}', [ProductController::class, 'update']);
+// Route::put('/update/id/{id}', [ProductController::class, 'updatePro']);
 
 
 Route::get('/crud',[ProductController::class, 'crud'])->middleware('login');

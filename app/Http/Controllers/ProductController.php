@@ -15,6 +15,13 @@ class ProductController extends Controller
         return view('welcome', compact('data'));
     }
 
+
+    public function update($id)
+    {
+      $i=Product::find($id);
+        return view('admin.update',compact('i'));
+    }
+    
     public function crud(){
       
         $data=Product::all();
