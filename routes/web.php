@@ -16,9 +16,10 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [ProductController::class,'prod']);
-Route::get('/user', [UserController::class,'user']);
+Route::get('/user', [UserController::class,'user'])->middleware('auth');
 Route::get('/logAdmin', [UserController::class,'logAdmin']);
 Route::post('/LoginAdmin', [UserController::class,'LoginAdmin']);
+Route::get('/logout', [UserController::class,'logout']);
 Route::post('/added',[UserController::class, 'editPic']);
 Route::post('/updateuser',[UserController::class, 'updateuser']);
 Route::post('/createPro', [ProductController::class,'createPro']);
@@ -26,7 +27,7 @@ Route::get('delete/id/{id}', [ProductController::class, 'deletePro']);
 Route::put('/update/id/{id}', [ProductController::class, 'updatePro']);
 
 
-Route::get('/crud',[ProductController::class, 'crud']);
+Route::get('/crud',[ProductController::class, 'crud'])->middleware('login');
 
 Auth::routes();
 

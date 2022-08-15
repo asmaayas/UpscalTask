@@ -267,17 +267,100 @@ $(document).ready(function(){
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
+			<div class='mb-5'>
+				<div class="row justify-content-end">
+					
+					
+						<a href="/logout"  class="btn btn-primary">Logout</a>	
+						
+											
+					
+				</div>
+			</div>
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
 						<h2>Manage <b>Products</b></h2>
 					</div>
 					<div class="col-sm-6">
+					
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-												
+											
 					</div>
 				</div>
 			</div>
+			<!-- add Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form method='post' action='/createPro' enctype="multipart/form-data">
+            @csrf
+				<div class="modal-header">						
+					<h4 class="modal-title">Add Product</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<div class="form-group">
+						<label>Name</label>
+						<input type="text" class="form-control @error('product_name') is-invalid @enderror" name='product_name' required >
+						@error('product_name')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+					</div>
+					<div class="form-group">
+						<label>Price</label>
+						<input type="text" class="form-control @error('product_price') is-invalid @enderror"
+                        name='product_price'  required>
+						@error('product_price')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+					</div>
+					<div class="form-group">
+						<label>Details</label>
+						<textarea class="form-control @error('product_details') is-invalid @enderror"
+                        name='product_details'  
+                        required></textarea>
+						@error('product_details')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+					</div>
+					<div class="form-group">
+						<label>Quality</label>
+						<input type="text" class="form-control @error('product_quality') is-invalid @enderror"
+                        name='product_quality' 
+                        required>
+						@error('product_quality')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+					</div>	
+                    <div class="form-group">
+						<label>Image</label>
+						<input type="file" class="form-control @error('product_img') is-invalid @enderror"
+                        name='product_img' 
+                        required>
+						@error('product_img')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+			@if (session('message1'))
+                            <div class="alert alert-success" role="alert">
+                                {{session('message1')}}
+                            </div>
+                        @endif
+						@if (session('message'))
+                            <div class="alert alert-success" role="alert">
+                                {{session('message')}}
+                            </div>
+                        @endif
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
@@ -292,6 +375,7 @@ $(document).ready(function(){
 					</tr>
 				</thead>
 				<tbody>
+					
                     @foreach($data as $i)
 					<tr>
 						
@@ -299,7 +383,7 @@ $(document).ready(function(){
 						<td>{{$i->product_price}}</td>
 						<td>{{$i->product_details}}</td>
 						<td>{{$i->product_quality}}</td>
-                        <td> <img src="img/{{$i->product_img}}" alt="" height=60> </td>
+                        <td> <img  src="{{asset('/storage/img/'.$i->product_img) }}" alt="" height=60> </td>
 						<td>
 							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <!-- Edit Modal HTML -->
@@ -316,33 +400,45 @@ $(document).ready(function(){
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" name='product_name' value='{{$i->product_name}}' required>
+						<input type="text" class="form-control @error('product_name') is-invalid @enderror" name='product_name' value='{{$i->product_name}}' required>
+						@error('product_name')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 					</div>
 					<div class="form-group">
 						<label>Price</label>
-						<input type="number" class="form-control"
+						<input type="text" class="form-control @error('product_price') is-invalid @enderror"
                         name='product_price' value='{{$i->product_price}}'  required>
+						@error('product_price')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 					</div>
 					<div class="form-group">
 						<label>Details</label>
-						<textarea class="form-control"
-                        name='product_details'
-                        value='{{$i->product_details}}'  
-                        required></textarea>
+						<textarea class="form-control @error('product_details') is-invalid @enderror"
+                        name='product_details' required>{{$i->product_details}} </textarea>
+						@error('product_details')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 					</div>
 					<div class="form-group">
 						<label>Quality</label>
-						<input type="text" class="form-control"
+						<input type="text" class="form-control @error('product_quality') is-invalid @enderror"
                         value='{{$i->product_quality}}'
                         name='product_quality' 
                         required>
+						@error('product_quality')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 					</div>	
                     <div class="form-group">
 						<label>Image</label>
-						<input type="file" class="form-control"
-                        value='{{$i->product_img}}'
+						<input type="file" class="form-control @error('product_img') is-invalid @enderror"
                         name='product_img' 
                         required>
+						@error('product_img')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 					</div>				
 				</div>
 				<div class="modal-footer">
@@ -355,83 +451,25 @@ $(document).ready(function(){
 </div>
                             </td>
                             <td>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<form>
+			
+				
+					
+					<a  href="{{url('delete/id/'.$i->id)}}" type="submit" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
+				
+			</form>
+							
 						    </td>
 					</tr>
 					@endforeach
+					
 				</tbody>
 			</table>
 		
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form method='post' action='/createPro' enctype="multipart/form-data">
-            @csrf
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Product</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" name='product_name' required>
-					</div>
-					<div class="form-group">
-						<label>Price</label>
-						<input type="number" class="form-control"
-                        name='product_price'  required>
-					</div>
-					<div class="form-group">
-						<label>Details</label>
-						<textarea class="form-control"
-                        name='product_details'  
-                        required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Quality</label>
-						<input type="text" class="form-control"
-                        name='product_quality' 
-                        required>
-					</div>	
-                    <div class="form-group">
-						<label>Image</label>
-						<input type="file" class="form-control"
-                        name='product_img' 
-                        required>
-					</div>				
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<a  href="{{url('delete/id/'.$i->id)}}" type="submit" class="btn btn-danger" >Delete</a>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+
+
 </body>
 </html>

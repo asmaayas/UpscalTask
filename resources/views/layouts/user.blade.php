@@ -61,7 +61,7 @@
           <div class="card">
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
-                <img src="img/{{  Auth::user()->img }}" alt="Admin" class="rounded-circle" height="150" width="150">
+                <img src="{{asset('/storage/img/'.Auth::user()->img) }}" alt="Admin" class="rounded-circle" height="150" width="150">
                 <!-- <a href="/addItem"> edit</a> -->
                 
                 <div class="mt-3">
@@ -115,15 +115,24 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h6 class="mb-0">First Name</h6>
-                <input type="text" name="name" value="{{  Auth::user()->name}}">
+                <input type="text" name="name" value="{{  Auth::user()->name}}" class="@error('name') is-invalid @enderror">
+                @error('name')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
               <h6 class="mb-0">Email</h6>
-              <input type="text" name="email" value="{{  Auth::user()->email}}">
+              <input type="text" name="email" value="{{  Auth::user()->email}}" class="@error('name') is-invalid @enderror">
+              @error('email')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
               <h6 class="mb-0">Phone</h6>
-              <input type="text" name="phone" value="{{  Auth::user()->phone}}">
+              <input type="text" name="phone" value="{{  Auth::user()->phone}}" class="@error('name') is-invalid @enderror">
+              @error('phone')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
               <div class="row">
@@ -143,7 +152,7 @@
                 <div class="card-body no_active">
                   <h5 class="card-title text_no_active">Your Previous Order</h5>
                   <ul class="list-group list-group-flush mt-2">
-           
+          
               
              @foreach($data as $i)
              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -159,13 +168,7 @@
            
             </ul>
                   
-                  <!-- @foreach($data as $i)
-                  <p>{{$i->product_name}}</p>
 
-                  @endforeach -->
-
-                
-                <!-- </div> -->
                 </div>
               </div>
 
